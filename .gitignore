@@ -1,0 +1,13 @@
+.env*
+node_modules
+*.swp*
+local
+*.bkp
+db/data
+.gradle
+.idea
+build
+out
+.vscode
+bin
+test-docker
