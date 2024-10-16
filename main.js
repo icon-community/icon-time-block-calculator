@@ -47,14 +47,15 @@ async function main() {
         (timeNumber - genesisTime.getTime() / 1000) / 2,
       );
       console.log(
-        `Time ${time} > Block: ${targetBlock} > Time: ${new Date(time)}`,
+        `Time ${timeNumber} > Block: ${targetBlock} > Time: ${new Date(time)}`,
       );
     } else {
+      const blockNumber2 = height - blockNumber;
       const blockTime = new Date(
-        genesisTime.getTime() + blockNumber * 2 * 1000,
+        genesisTime.getTime() + blockNumber2 * 2 * 1000,
       );
       console.log(
-        `Time ${timeNumber} > Block: ${blockNumber} > Time: ${blockTime}`,
+        `Time ${timeNumber} > Block: ${blockNumber2} > Time: ${blockTime}`,
       );
     }
   }
