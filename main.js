@@ -2,6 +2,8 @@ require("dotenv").config();
 const { getLastBlock } = require("./lib");
 const block = process.env.BLOCK;
 const time = process.env.TIME;
+// const secondsPerBlock = 2.3940387069264473;
+const secondsPerBlock = 2.00378;
 
 async function main() {
   if (block == null && time == null) {
@@ -18,13 +20,15 @@ async function main() {
   console.log(`Current block: ${height}`);
 
   const currentTime = parseInt(new Date().getTime() / 1000);
-  const secondsFromGenesis = parseInt(parseInt(height) * 2);
+  const secondsFromGenesis = parseInt(parseInt(height) * secondsPerBlock);
   const genesisTime = new Date((currentTime - secondsFromGenesis) * 1000);
 
   if (block != null) {
     const blockNumber = parseInt(block);
     // const blockTime = new Date((currentTime - blockNumber * 2) * 1000);
-    const blockTime = new Date(genesisTime.getTime() + blockNumber * 2 * 1000);
+    const blockTime = new Date(
+      genesisTime.getTime() + blockNumber * secondsPerBlock * 1000,
+    );
     console.log(`Block ${blockNumber} > Time: ${blockTime}`);
   }
 
@@ -40,11 +44,11 @@ async function main() {
         console.log(err);
       }
     }
-    const blockNumber = parseInt((currentTime - timeNumber) / 2);
+    const blockNumber = parseInt((currentTime - timeNumber) / secondsPerBlock);
 
     if (blockNumber < 0) {
       const targetBlock = parseInt(
-        (timeNumber - genesisTime.getTime() / 1000) / 2,
+        (timeNumber - genesisTime.getTime() / 1000) / secondsPerBlock,
       );
       console.log(
         `Time ${timeNumber} > Block: ${targetBlock} > Time: ${new Date(time)}`,
@@ -52,7 +56,7 @@ async function main() {
     } else {
       const blockNumber2 = height - blockNumber;
       const blockTime = new Date(
-        genesisTime.getTime() + blockNumber2 * 2 * 1000,
+        genesisTime.getTime() + blockNumber2 * secondsPerBlock * 1000,
       );
       console.log(
         `Time ${timeNumber} > Block: ${blockNumber2} > Time: ${blockTime}`,
