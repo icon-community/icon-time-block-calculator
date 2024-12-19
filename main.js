@@ -23,8 +23,9 @@ async function main() {
 
   if (block != null) {
     const blockNumber = parseInt(block);
-    const blockTime = new Date(findTimeGivenBlock(blockNumber) * 1000);
-    console.log(`Block ${blockNumber} > Time: ${blockTime}`);
+    const unixTime = findTimeGivenBlock(blockNumber);
+    const blockTime = new Date(unixTime * 1000);
+    console.log(`Block ${blockNumber} > Time: ${unixTime} (${blockTime})`);
   }
 
   if (time != null) {
