@@ -1,6 +1,31 @@
 require("dotenv").config();
 const config = require("./config");
 const rqst = require("rqst");
+const X1 = 60212985;
+const Y1 = 1672977715;
+const M = 2.00378;
+
+/*
+ * This function calculates the time given a block number using the
+ * point slope formula. The point slope formula is y - y1 = m(x - x1)
+ * where y1 = 60212985, x1 = 1672977715, and m = 2.00378.
+ * @param {number} block - The block number.
+ * @returns {number} The time in seconds.
+ */
+function findTimeGivenBlock(block) {
+  return parseInt(M * (block - X1) + Y1);
+}
+
+/*
+ * This function calculates the block number given a time using the
+ * point slope formula. The point slope formula is y - y1 = m(x - x1)
+ * where y1 = 60212985, x1 = 1672977715, and m = 2.00378.
+ * @param {number} time - The time in seconds.
+ * @returns {number} The block number.
+ * */
+function findBlockGivenTime(time) {
+  return parseInt((time - Y1) / M + X1);
+}
 
 function parseUrl(url) {
   const inputInlowercase = url.toLowerCase();
@@ -57,4 +82,6 @@ async function getLastBlock(url = config.mainnet.rpc, queryMethod = rqst) {
 
 module.exports = {
   getLastBlock,
+  findTimeGivenBlock,
+  findBlockGivenTime,
 };
